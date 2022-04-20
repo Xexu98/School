@@ -1,4 +1,4 @@
-﻿﻿let App = {
+﻿let App = {
     Core: {
         CreateTable: function(id) {
             $("#" + id).DataTable({

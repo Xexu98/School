@@ -52,5 +52,23 @@ namespace School.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Ficha(int id, Person student) 
+        {
+            if(id != student.PersonID) return NotFound();
+
+            if(ModelState.IsValid)
+            {
+                _context.Update(student);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            } else 
+            {
+                return View(student);
+            }
+        }
+
     }
 }
