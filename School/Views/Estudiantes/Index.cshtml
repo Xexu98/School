@@ -1,0 +1,47 @@
+@model List<Person>
+
+@section Scripts {
+    <script type="text/javascript">        
+        $(document).ready(function() { 
+             App.Page.Students.List.OnLoad();
+        });      
+    </script>
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Listado de Estudiantes</h1>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <table id="estudiantes" class="table table-striped">
+            <thead>
+                <tr>
+                    <th><b>ID</b></th>
+                    <th><b>Nombre</b></th>
+                    <th><b>Apellido</b></th>
+                    <th><b>Fecha de alta</b></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Estudiantes" asp-action="Ficha" asp-route-id="@item.PersonID">@item.PersonID</a></td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.EnrollmentDate.GetValueOrDefault().ToShortDateString()</td>
+                </tr>
+            }                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a asp-controller="Estudiantes" asp-action="Nuevo" class="btn btn-success">Añadir estudiante</a>
+    </div>
+</div>

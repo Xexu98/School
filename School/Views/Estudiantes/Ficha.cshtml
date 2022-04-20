@@ -1,0 +1,89 @@
+@model Person
+
+@{
+    var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower(); 
+    var action = ViewContext.RouteData.Values["action"].ToString().ToLower();         
+
+}
+
+@section Scripts {
+    <script type="text/javascript">   
+        $(document).ready(function() { 
+             App.Page.Students.Details.OnLoad();
+        });       
+    </script>
+}
+
+<br />
+<div class="row">
+    <div class="col">
+        <h1>Ficha de Estudiante</h1>
+        <hr />
+        <br />
+    </div>
+</div>
+<form method="post">     
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    @if(action == "nuevo")
+                    {
+                        <h4><b>Nuevo Estudiante</b></h4>
+                    }
+                    else
+                    {
+                        <h4><b>@Model.FirstName @Model.LastName</b></h4>
+                    }                    
+                </div>
+                <div class="card-body">
+                     @if(action == "nuevo")
+                    {
+                        <input type="hidden" class="form-control" asp-for="PersonID" />
+                    }
+                    else
+                    {
+                        <div class="form-group row mb-2">
+                            <label asp-for="PersonID" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="PersonID" />
+                            </div>
+                        </div>
+                    }   
+
+                    <div class="form-group row mb-2">
+                        <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" asp-for="FirstName" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+
+                     <div class="form-group row mb-2">
+                        <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" asp-for="LastName" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                     <div class="form-group row mb-2">
+                        <label asp-for="EnrollmentDate" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-format="{0: dd/MM/yyyy}" type="text" class="form-control" asp-for="EnrollmentDate" />
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-6">
+            <a asp-controller="Estudiantes" asp-action="Index" class="btn btn-success">Volver</a>
+        </div>
+        <div class="col-6 text-end">
+            <input type="submit" class="btn btn-primary" value="Grabar" />
+        </div>
+</form>
